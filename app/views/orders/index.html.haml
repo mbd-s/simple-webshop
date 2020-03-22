@@ -1,0 +1,32 @@
+%h2 Orders
+- @orders.each do |order|
+  %p
+    Customer:
+    = order.customer.name
+    %br
+    - if order.delivery?
+      Address:
+      = order.customer.address
+    - else
+      PICKUP
+    %br
+    Telephone number:
+    = order.customer.telephone
+    %br
+    Email address:
+    = order.customer.email
+    %br
+    Order:
+    %ul
+      - order.line_items.each do |line_item|
+        %li
+          #{line_item.quantity} x #{line_item.product.name}
+    Total:
+    = number_to_currency(order.total_price, unit: '€')
+    %br
+    %br
+    Note:
+    = order.note
+    = button_to "Edit", edit_order_path(order), method: :get
+    %br
+    %br

@@ -1,0 +1,14 @@
+%h2 Products
+- @products.each do |product|
+  %p
+    %strong= product.name
+    %br
+    Description: #{product.description}
+    %br
+    Category: #{product.category}
+    %br
+    Price: #{number_to_currency(product.price, unit: '€')}
+    = button_to "Edit", edit_product_path(product), method: :get
+    = button_to "Delete", product_path(product), method: :delete, data: {confirm: "Are you sure?"}
+    %br
+= button_to "New product", new_product_path, method: :get

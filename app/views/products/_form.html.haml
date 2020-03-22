@@ -1,0 +1,15 @@
+= form_with model: @product do |f|
+  %p
+    = f.label :name
+    %br
+      = f.text_field :name, required: true, autofocus: true
+    %p
+      = f.label :price
+      %br
+        = f.number_field :price, step: 0.5, required: true
+    %p
+      = f.label :description
+      %br
+        = f.text_field :description
+    %p
+    = f.submit

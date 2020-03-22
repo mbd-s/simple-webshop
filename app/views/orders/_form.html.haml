@@ -1,0 +1,37 @@
+= form_with model: @order do |f|
+
+  = f.fields_for :customer do |f|
+    = f.label :name
+    = f.text_field :name, required: true, autofocus: true, placeholder: 'Required'
+
+    = f.label :email
+    = f.email_field :email, required: true, placeholder: 'Required'
+
+    = f.label :telephone
+    = f.telephone_field :telephone
+
+    = f.label :address
+    = f.text_area :address, placeholder: 'Required for deliveries'
+
+  %br
+
+  - delivery_methods.each do |delivery_method|
+    = f.radio_button :delivery_method, delivery_method, required: true
+    = f.label delivery_method.to_sym
+
+  %br
+
+  - @products.each do |product|
+    = f.fields_for :products do |p|
+      = p.fields_for :line_items do |line_item_form|
+        = p.label :name, product.name
+        = p.hidden_field :id, value: product.id
+        = line_item_form.number_field :quantity
+        %br
+
+  = f.label :note, 'Special instructions? Add them here:'
+  = f.text_area :note
+
+  %br
+
+  = f.submit
