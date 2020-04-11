@@ -2,6 +2,7 @@
 
 class OrdersController < ApplicationController
   before_action :set_order, only: %i[edit update]
+  http_basic_authenticate_with name: 'todo', password: 'changeme', except: %i[new create]
 
   def index
     @orders = Order.all
